@@ -18,7 +18,7 @@ const Home = () => {
       toast.dismiss()
       toast.success('Logged out successfully' , {theme : 'dark'})
       localStorage.clear()
-      navigate('/login')
+      navigate('/auth/login')
     }).catch((error)=>{
       toast.dismiss();
       toast.error(error.message , {theme : 'dark'})

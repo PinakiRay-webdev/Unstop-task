@@ -9,7 +9,7 @@ const App = () => {
   const ProtectedRoute = () =>{
     const getUser = JSON.parse(localStorage.getItem('userCredentials'));
     const isAuthenticated = getUser ? true : false;
-    return isAuthenticated ? <Outlet/> : <Navigate to="/login"/>
+    return isAuthenticated ? <Outlet/> : <Navigate to="/auth/login"/>
   }
 
   const endpoints = createBrowserRouter([
@@ -18,13 +18,13 @@ const App = () => {
       element : <ProtectedRoute/>,
       children : [
         {
-          path : '/',
+          path : '/home',
           element : <Home/>
         },
       ]
     },
     {
-      path: "/login",
+      path: "/auth/login",
       element: (
         <>
           <Login />
