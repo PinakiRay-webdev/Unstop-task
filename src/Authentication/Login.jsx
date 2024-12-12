@@ -10,7 +10,6 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset
   } = useForm();
 
 
@@ -34,7 +33,7 @@ const Login = () => {
       localStorage.setItem('userCredentials' , JSON.stringify({
         firstname : response.data.firstName,
         lastname : response.data.lastName,
-        mail : response.data.email,
+        mail : data.mail, //here i am passing the user mail who logs in (E.G :- example@gmail.com) or we can also go for emilys's mail id.
         gender : response.data.gender,
         accessToken : response.data.accessToken
       }))
