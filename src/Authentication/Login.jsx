@@ -20,8 +20,8 @@ const Login = () => {
   const getFormData = async (data) => {
     toast.loading('logging...' , {theme : 'dark'})
     try {
-      new Promise(()=>{
-        setTimeout((resolve) => {
+      new Promise((resolve)=>{
+        setTimeout(() => {
           resolve()
         }, 1500);
       })

@@ -5,10 +5,10 @@ import Home from "./Pages/Home/Home";
 const App = () => {
 
   //developing here a router protection so that no one can access the home page via url params with out login.
-  const getUser = JSON.parse(localStorage.getItem('userCredentials'));
-  const isAuthenticated = getUser ? true : false;
   
   const ProtectedRoute = () =>{
+    const getUser = JSON.parse(localStorage.getItem('userCredentials'));
+    const isAuthenticated = getUser ? true : false;
     return isAuthenticated ? <Outlet/> : <Navigate to="/login"/>
   }
 
@@ -20,7 +20,7 @@ const App = () => {
         {
           path : '/',
           element : <Home/>
-        }
+        },
       ]
     },
     {
@@ -40,4 +40,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App; 
