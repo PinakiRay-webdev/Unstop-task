@@ -1,6 +1,33 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import { facebook, google, key, loginImage, mail, user } from "../utils/utils";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset
+  } = useForm();
+
+  const getFormData = async (data) => {
+    toast.loading("Logging....", { theme: "dark" });
+    await new Promise((resolve) => {
+      //Promise to delay submission
+      setTimeout(() => {
+        resolve();
+      }, 1500);
+    })
+      .then(() => {
+        toast.dismiss();
+        toast.success("Logged In successfully", { theme: "dark" });
+        reset()
+      })
+      .catch((errors) => {
+        toast.error(errors.message, { theme: "dark" });
+      });
+  };
   return (
     <div className="bg-[#F4F4F4] w-full h-fit">
       <div className="h-screen flex items-center justify-between px-[74px]">
@@ -45,14 +72,33 @@ const Login = () => {
           </div>
 
           {/* form section  */}
-          <form>
-            <fieldset className={`bg-[#F4F4F4] py-2 rounded-lg px-6`}>
+          <form onSubmit={handleSubmit(getFormData)}>
+            {/* in the label section i have added error message in terms of ternary operator so that the error message will display there if any errors comes otherwise the input label will show. */}
+
+            {/* user name  */}
+            <fieldset
+              className={`bg-[#F4F4F4] py-2 border rounded-lg px-6 ${
+                errors.username && "border-red-500"
+              }`}
+            >
               <div className="flex items-center gap-5">
                 <img src={user} alt="" />
                 <div className="w-full">
-                  <label className="font-[400] text-[14px]">User Name</label>
+                  <label
+                    className={`font-[400] text-[14px] ${
+                      errors.username && "text-red-500"
+                    }`}
+                  >
+                    {errors.username ? errors.username.message : "User Name"}
+                  </label>
                   <br />
                   <input
+                    {...register("username", {
+                      required: {
+                        value: true,
+                        message: "User name is required",
+                      },
+                    })}
                     className="w-full py-1 bg-transparent outline-none font-[700] text-[15px]"
                     type="text"
                     placeholder="abc@example.com"
@@ -60,14 +106,36 @@ const Login = () => {
                 </div>
               </div>
             </fieldset>
-
-            <fieldset className={`bg-[#F4F4F4] py-2 rounded-lg px-6 my-3`}>
+            
+            {/* user mail address  */}
+            <fieldset
+              className={`bg-[#F4F4F4] py-2 border rounded-lg px-6 my-3 ${
+                errors.mail && "border-red-500"
+              }`}
+            >
               <div className="flex items-center gap-5">
                 <img src={mail} alt="" />
                 <div className="w-full">
-                  <label className="font-[400] text-[14px]">Email</label>
+                  <label
+                    className={`font-[400] text-[14px] ${
+                      errors.mail && "text-red-500"
+                    }`}
+                  >
+                    {errors.mail ? errors.mail.message : "Email"}
+                  </label>
                   <br />
                   <input
+                    {...register("mail", {
+                      required: {
+                        value: true,
+                        message: "Email address is required",
+                      },
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/,
+                        message: "Enter a valid mail address",
+                      },
+                    })}
                     className="w-full py-1 bg-transparent outline-none font-[700] text-[15px]"
                     type="text"
                     placeholder="abc@example.com"
@@ -75,14 +143,36 @@ const Login = () => {
                 </div>
               </div>
             </fieldset>
+            
 
-            <fieldset className={`bg-[#F4F4F4] py-2 rounded-lg px-6`}>
+            {/* user password  */}
+            <fieldset
+              className={`bg-[#F4F4F4] py-2 border rounded-lg px-6 ${
+                errors.password && "border-red-500"
+              }`}
+            >
               <div className="flex items-center gap-5">
                 <img src={key} alt="" />
                 <div className="w-full">
-                  <label className="font-[400] text-[14px]">Password</label>
+                  <label
+                    className={`font-[400] text-[14px] ${
+                      errors.password && "text-red-500"
+                    }`}
+                  >
+                    {errors.password ? errors.password.message : "Password"}
+                  </label>
                   <br />
                   <input
+                    {...register("password", {
+                      required: {
+                        value: true,
+                        message: "Password is required",
+                      },
+                      pattern: {
+                        value: /^.{8,}$/,
+                        message: "Password must have atleast 8 characters",
+                      },
+                    })}
                     className="w-full py-1 bg-transparent outline-none font-[700] text-[15px]"
                     type="password"
                     placeholder="abc@example.com"
@@ -98,17 +188,25 @@ const Login = () => {
                 <p className="font-[500] text-sm">Remember me</p>
               </div>
 
-              <p className="text-[#6358DC] text-sm" >Forgot Password ?</p>
+              <p className="text-[#6358DC] text-sm">Forgot Password ?</p>
             </div>
 
             {/* submit button for form  */}
-            <button className="bg-[#6358DC] w-full py-3 rounded-lg text-white" >Login</button>
+            <button disabled={isSubmitting} className={`bg-[#6358DC] w-full py-3 rounded-lg text-white ${isSubmitting && "cursor-not-allowed opacity-60"}`}>
+              {isSubmitting ? "Logging..." : "Login"}
+            </button>
+
+            {/* footer section for forgot password */}
             <footer>
-                <p className="text-center text-sm mt-3" >Don't have an account? <span className="text-[#6358DC] cursor-pointer" >Register</span></p>
+              <p className="text-center text-sm mt-3">
+                Don't have an account?{" "}
+                <span className="text-[#6358DC] cursor-pointer">Register</span>
+              </p>
             </footer>
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
