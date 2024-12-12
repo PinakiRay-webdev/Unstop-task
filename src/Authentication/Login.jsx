@@ -1,7 +1,9 @@
 import React from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { facebook, google, key, loginImage, mail, user } from "../utils/utils";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const {
@@ -11,23 +13,43 @@ const Login = () => {
     reset
   } = useForm();
 
+
+  const base_url = 'https://dummyjson.com/auth/login'
+  const navigate = useNavigate()
+
   const getFormData = async (data) => {
-    toast.loading("Logging....", { theme: "dark" });
-    await new Promise((resolve) => {
-      //Promise to delay submission
-      setTimeout(() => {
-        resolve();
-      }, 1500);
-    })
-      .then(() => {
-        toast.dismiss();
-        toast.success("Logged In successfully", { theme: "dark" });
-        reset()
+    toast.loading('logging...' , {theme : 'dark'})
+    try {
+      new Promise(()=>{
+        setTimeout((resolve) => {
+          resolve()
+        }, 1500);
       })
-      .catch((errors) => {
-        toast.error(errors.message, { theme: "dark" });
-      });
+      const response = await axios.post(base_url , {
+        username : data.username,
+        password : data.password
+      })
+      toast.dismiss()
+      toast.success('logged in successfully' , {theme : 'dark'})
+      localStorage.setItem('userCredentials' , JSON.stringify({
+        firstname : response.data.firstName,
+        lastname : response.data.lastName,
+        mail : response.data.email,
+        gender : response.data.gender,
+        accessToken : response.data.accessToken
+      }))
+      
+      setTimeout(() => {
+        navigate('/')
+      }, 1000);
+    } catch (error) {
+      toast.dismiss()
+      toast.error(error.message , {theme : 'dark'})
+    }
   };
+
+   
+
   return (
     <div className="bg-[#F4F4F4] w-full h-fit">
       <div className="h-screen flex items-center justify-between px-[74px]">
