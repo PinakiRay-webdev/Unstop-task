@@ -17,36 +17,43 @@ const Login = () => {
   const base_url = 'https://dummyjson.com/auth/login'
   const navigate = useNavigate()
 
+  const userName_of_user = import.meta.env.VITE_USER_NAME;
+  const password_of_user = import.meta.env.VITE_USER_PASSWORD;
+
   const getFormData = async (data) => {
-    toast.loading('logging...' , {theme : 'dark'})
+    toast.loading("logging...", { theme: "dark" });
     try {
-      new Promise((resolve)=>{
-        setTimeout(() => {
-          resolve()
-        }, 1500);
-      })
-      const response = await axios.post(base_url , {
-        username : data.username,
-        password : data.password
-      })
-      toast.dismiss()
-      toast.success('logged in successfully' , {theme : 'dark'})
-      localStorage.setItem('userCredentials' , JSON.stringify({
-        firstname : response.data.firstName,
-        lastname : response.data.lastName,
-        mail : data.mail, //here i am passing the user mail who logs in (E.G :- example@gmail.com) or we can also go for emilys's mail id.
-        gender : response.data.gender,
-        accessToken : response.data.accessToken
-      }))
-      
+      const username = data.username.toLowerCase();   //converting into lowercase because in the dummy json it has in lower case
+      const password = data.password.toLowerCase();
+
+      if (username !== userName_of_user || password !== password_of_user) {
+        throw new Error("Wrong credentials");
+      }
+      const response = await axios.post(base_url, {
+        username: data.username,
+        password: data.password,
+      });
+      toast.dismiss();
+      toast.success("Logged in successfully", { theme: "dark" });
+      localStorage.setItem(
+        "userCredentials",
+        JSON.stringify({
+          firstname: response.data.firstName,
+          lastname: response.data.lastName,
+          mail: data.mail,  //here i am taking the mail of the user who is logging. we can also with the emilys's mail id.
+          gender: response.data.gender,
+          accessToken: response.data.accessToken,
+        })
+      );
       setTimeout(() => {
-        navigate('/home')
+        navigate("/home");
       }, 1000);
     } catch (error) {
-      toast.dismiss()
-      toast.error(error.message , {theme : 'dark'})
+      toast.dismiss();
+      toast.error(error.response?.data?.message || error.message, { theme: "dark" });
     }
   };
+  
 
   //logic to toggle password visibily
    const [isPassVisible, setIsPassVisible] = useState(false)
@@ -54,7 +61,8 @@ const Login = () => {
    const togglePassVisibility = () =>{
     setIsPassVisible(!isPassVisible)
    }
-  
+   
+   
 
   return (
     <div className="w-full h-fit">
