@@ -1,10 +1,11 @@
-import React from "react";
+import React , {useState} from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { facebook, google, key, loginImage, mail, user } from "../utils/utils";
+import { facebook, google, key, loginImage, mail, user , eyeOpen , eyeClose } from "../utils/utils";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+
 const Login = () => {
   const {
     register,
@@ -47,7 +48,13 @@ const Login = () => {
     }
   };
 
-   
+  //logic to toggle password visibily
+   const [isPassVisible, setIsPassVisible] = useState(false)
+
+   const togglePassVisibility = () =>{
+    setIsPassVisible(!isPassVisible)
+   }
+  
 
   return (
     <div className="bg-[#F4F4F4] w-full h-fit">
@@ -122,7 +129,7 @@ const Login = () => {
                     })}
                     className="w-full py-1 bg-transparent outline-none font-[700] text-[15px]"
                     type="text"
-                    placeholder="abc@example.com"
+                    placeholder="username"
                   />
                 </div>
               </div>
@@ -195,10 +202,13 @@ const Login = () => {
                       },
                     })}
                     className="w-full py-1 bg-transparent outline-none font-[700] text-[15px]"
-                    type="password"
-                    placeholder="abc@example.com"
+                    type={isPassVisible ? "text" : "password"}
+                    placeholder="***********"
                   />
                 </div>
+
+                {/* password visibility toggle button  */}
+                <img onClick={togglePassVisibility} className="cursor-pointer" src={isPassVisible ? eyeClose : eyeOpen} alt="" />
               </div>
             </fieldset>
 
