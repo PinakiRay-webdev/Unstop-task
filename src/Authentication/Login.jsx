@@ -1,7 +1,7 @@
 import React , {useState} from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { facebook, google, key, loginImage, mail, user , eyeOpen , eyeClose } from "../utils/utils";
+import { facebook, google, key, loginImage, mail, user , eyeOpen , eyeClose, loginImageMobile } from "../utils/utils";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
@@ -57,13 +57,16 @@ const Login = () => {
   
 
   return (
-    <div className="bg-[#F4F4F4] w-full h-fit">
-      <div className="h-screen flex items-center justify-between px-[74px]">
-        <img className="w-[540px] h-[540px]" src={loginImage} alt="" />
+    <div className="w-full h-fit">
+      <div className="bg-[#F4F4F4] h-[100vh] flex items-center justify-center xl:justify-between xl:px-[74px]">
+        <img className="hidden xl:block" src={loginImage} alt="" />
 
         {/* login section  */}
-        <div className="h-[95vh] w-[40vw] bg-[#FFFFFF] rounded-[20px] px-4 py-6">
-          <div className="flex flex-col h-full justify-center" >
+        <div className="h-[95vh] xl:w-[35vw] w-[90vw] bg-[#FFFFFF] rounded-[20px] px-4 py-6">
+          <div className="flex flex-col justify-center xl:h-full" >
+            <div className="mb-16 rounded-2xl h-[30vh] block xl:hidden" >
+              <img className="w-full h-full object-cover rounded-2xl" src={loginImageMobile} alt="" />
+            </div>
           <header>
             <p className="font-[500px] leading-3">Welcome to</p>
             <h1 className="font-[900] text-5xl text-[#6358DC]">Unstop</h1>
