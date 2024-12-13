@@ -62,36 +62,38 @@ const Login = () => {
         <img className="hidden xl:block" src={loginImage} alt="" />
 
         {/* login section  */}
-        <div className="h-[95vh] xl:w-[35vw] w-[90vw] bg-[#FFFFFF] rounded-[20px] px-4 py-6">
-          <div className="flex flex-col justify-center xl:h-full" >
-            <div className="mb-16 rounded-2xl h-[30vh] block xl:hidden" >
+        <div className="h-[95vh] xl:w-[35vw] md:w-[65vw] w-[90vw] bg-[#FFFFFF] rounded-[20px] px-4 py-6">
+          <div className="flex flex-col justify-center xl:h-full">
+
+            {/* login image in mobile screen  */}
+            <div className="md:mb-16 mb-6 rounded-2xl h-[20vh] block xl:hidden" >
               <img className="w-full h-full object-cover rounded-2xl" src={loginImageMobile} alt="" />
             </div>
           <header>
-            <p className="font-[500px] leading-3">Welcome to</p>
-            <h1 className="font-[900] text-5xl text-[#6358DC]">Unstop</h1>
+            <p className="md:font-[500px] font-[300] leading-5">Welcome to</p>
+            <h1 className="md:font-[900] md:text-5xl font-[700] text-4xl text-[#6358DC]">Unstop</h1>
           </header>
 
           {/* social media section  */}
-          <div className="mt-5">
-            <div className="flex items-center justify-center gap-3 border border-[#E2E2E2] py-4 rounded-lg shadow cursor-pointer">
+          <div className="md:mt-5 mt-2 flex gap-3 md:block">
+            <div className="flex items-center justify-center gap-3 border border-[#E2E2E2] py-4 rounded-lg shadow cursor-pointer w-full">
               <img
                 className="w-7"
                 src={google}
                 loading="lazy"
                 alt="google icon"
               />
-              <p className="font-[500] text-sm">Login with google</p>
+              <p className="font-[500] text-sm hidden md:block">Login with google</p>
             </div>
 
-            <div className="flex items-center justify-center gap-3 border border-[#E2E2E2] py-4 rounded-lg shadow cursor-pointer mt-2">
+            <div className="flex items-center justify-center gap-3 border border-[#E2E2E2] py-4 rounded-lg shadow cursor-pointer md:mt-2 w-full">
               <img
                 className="w-3"
                 src={facebook}
                 loading="lazy"
                 alt="google icon"
               />
-              <p className="font-[500] text-sm">Login with facebook</p>
+              <p className="font-[500] text-sm hidden md:block">Login with facebook</p>
             </div>
           </div>
 
@@ -109,7 +111,7 @@ const Login = () => {
 
             {/* user name  */}
             <fieldset
-              className={`bg-[#F4F4F4] py-2 border rounded-lg px-6 ${
+              className={`bg-[#F4F4F4] md:py-2 py-1 border rounded-lg px-6 ${
                 errors.username && "border-red-500"
               }`}
             >
@@ -141,7 +143,7 @@ const Login = () => {
             
             {/* user mail address  */}
             <fieldset
-              className={`bg-[#F4F4F4] py-2 border rounded-lg px-6 my-3 ${
+              className={`bg-[#F4F4F4] md:py-2 py-1 border rounded-lg px-6 my-3 ${
                 errors.mail && "border-red-500"
               }`}
             >
@@ -179,7 +181,7 @@ const Login = () => {
 
             {/* user password  */}
             <fieldset
-              className={`bg-[#F4F4F4] py-2 border rounded-lg px-6 ${
+              className={`bg-[#F4F4F4] md:py-2 py-1 border rounded-lg px-6 ${
                 errors.password && "border-red-500"
               }`}
             >
@@ -212,7 +214,7 @@ const Login = () => {
                 </div>
 
                 {/* password visibility toggle button  */}
-                <img onClick={togglePassVisibility} className="cursor-pointer" src={isPassVisible ? eyeClose : eyeOpen} alt="" />
+                <img onClick={togglePassVisibility} className="cursor-pointer md:w-6 w-5" src={isPassVisible ? eyeClose : eyeOpen} alt="" />
               </div>
             </fieldset>
 

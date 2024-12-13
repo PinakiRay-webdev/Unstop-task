@@ -27,13 +27,13 @@ const Home = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-slate-100" >
-      <div className="w-[20vw]" >
+      <div className="md:w-[20vw] w-[80vw]" >
         <header>
           <p className="text-[36px] font-[500] text-center leading-6" >Welcome to</p>
           <h1 className="text-[#6358DC] text-[44px] font-[900] text-center" >unstop</h1>
         </header>
 
-        <main className="border mt-20 rounded-xl bg-white shadow-md py-6">
+        <main className="border mt-20 rounded-xl bg-white shadow-md py-6 w-full">
           {/* dp of the user  */}
           <img className="mx-auto" src={userDP} alt="" />
 
