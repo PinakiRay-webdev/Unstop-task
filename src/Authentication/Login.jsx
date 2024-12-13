@@ -63,6 +63,7 @@ const Login = () => {
 
         {/* login section  */}
         <div className="h-[95vh] w-[40vw] bg-[#FFFFFF] rounded-[20px] px-4 py-6">
+          <div className="flex flex-col h-full justify-center" >
           <header>
             <p className="font-[500px] leading-3">Welcome to</p>
             <h1 className="font-[900] text-5xl text-[#6358DC]">Unstop</h1>
@@ -235,6 +236,7 @@ const Login = () => {
               </p>
             </footer>
           </form>
+          </div>
         </div>
       </div>
       <ToastContainer />
