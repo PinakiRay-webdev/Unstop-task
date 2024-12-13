@@ -13,8 +13,13 @@ const App = () => {
   }
 
   const endpoints = createBrowserRouter([
+
     {
-      path: "/",
+      path : '/',
+      element : <Navigate to="/home" replace={true}/>   //here i'm changing the default (/) to (/home) as we have only two routes i.e /home and /auth/login. And if user is logged in it will take to home or else it will take to login page.
+    },
+    {
+      path: "/home",
       element : <ProtectedRoute/>,
       children : [
         {
