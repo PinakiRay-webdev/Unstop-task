@@ -68,15 +68,16 @@ const Login = () => {
     });
   };
 
-  const getFormData = async (data) => {
+  const login = async (data) => {
     toast.loading("logging...", { theme: "dark" });
     try {
-      const username = data.username.toLowerCase(); //converting into lowercase because in the dummy json it has in lower case
-      const password = data.password.toLowerCase();
 
-      if (username !== userName_of_user || password !== password_of_user) {
+      const userName = data.username.trim()
+      const Password = data.password.trim()
+
+      if (userName !== userName_of_user || Password !== password_of_user) {
         throw new Error("Wrong credentials");
-      }
+      }      
       const response = await axios.post(base_url, {
         username: data.username,
         password: data.password,
@@ -101,7 +102,7 @@ const Login = () => {
       toast.error(error.response?.data?.message || error.message, {
         theme: "dark",
       });
-    }
+    }    
   };
 
   //logic to toggle password visibily
@@ -110,7 +111,7 @@ const Login = () => {
   const togglePassVisibility = () => {
     setIsPassVisible(!isPassVisible);
   };
-
+  
   return (
     <div className="w-full h-fit">
       <div className="bg-[#F4F4F4] h-[100vh] flex items-center justify-center xl:justify-between xl:px-[74px]">
@@ -119,7 +120,7 @@ const Login = () => {
         {/* login section  */}
         <div className="h-[95vh] xl:w-[35vw] md:w-[65vw] w-[90vw] bg-[#FFFFFF] rounded-[20px] px-4 py-6">
           <div className="flex flex-col justify-center xl:h-full">
-            {/* login image in mobile screen  */}
+            {/* login image in mobile screen. The login image for mobile i used another image for better enhancements  */}
             <div className="md:mb-16 mb-6 rounded-2xl h-[20vh] block xl:hidden">
               <img
                 className="w-full h-full object-cover rounded-2xl"
@@ -170,7 +171,7 @@ const Login = () => {
             </div>
 
             {/* form section  */}
-            <form onSubmit={handleSubmit(getFormData)}>
+            <form onSubmit={handleSubmit(login)}>
               {/* in the label section i have added error message in terms of ternary operator so that the error message will display there if any errors comes otherwise the input label will show. */}
 
               {/* user name  */}
